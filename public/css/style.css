@@ -1,0 +1,15 @@
+img.pimage {
+    width: 150px;
+}
+
+a.pa {
+    display: inline-block;
+    height: 50%;
+}
+
+.row.products .p{
+    margin: 20px;
+}
+.col-xs-12{
+    text-align: center;
+}

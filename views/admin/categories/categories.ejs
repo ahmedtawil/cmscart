@@ -1,0 +1,29 @@
+
+<%- include('../../_layouts/admin/adminheader'); %>
+<%- messages('messages', locals) %>
+
+<h2 class="page-title">Categories</h2>
+<a href="/admin/categories/add-category" class="btn btn-primary">Add new category</a>
+<br><br>
+<table class="table table-striped sorting">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+            <%categories.forEach(category => {%>
+                <tr>
+                    <td><%=  category.title.toUpperCase()%></td> 
+                    <td><a href="/admin/categories/edit-category/<%=category.slug%>">Edit</a></td>  
+                    <td><a href="/admin/categories/delete-category/<%=category._id%>" id='delete'>Delete</a></td>  
+                </tr>
+            <%});%>
+    </tbody>
+</table>
+</div>
+
+
+<%- include('../../_layouts/admin/adminfooter'); %>

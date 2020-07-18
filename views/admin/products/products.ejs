@@ -1,0 +1,47 @@
+<%- include('../../_layouts/admin/adminheader'); %>
+<%- messages('messages', locals) %>
+
+<h2 class="page-title">Products</h2>
+<a href="/admin/products/add-product" class="btn btn-primary">Add new product</a>
+<br><br>
+<% if (count > 0) { %>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Product Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%products.forEach(product => {%>
+        <tr>
+            <td><%=  product.title.toUpperCase()%></td>
+            <td>$<%=  parseFloat(product.price).toFixed(2)%></td>
+            <td><%=  product.category.toUpperCase()%></td>
+            <td>
+                <% if (product.img == '') { %>
+                <img class="img_preview" src="/images/noimage.png" alt="" ">
+                <% }else{ %>
+                <img class="img_preview" src="/product_images/<%= product._id %>/<%= product.img %> " alt="">
+                <% } %>
+            </td>
+            <td><a href="/admin/products/edit-product/<%=product._id%>">Edit</a></td>
+            <td><a href="/admin/products/delete-product/<%=product._id%>" id='delete'>Delete</a></td>
+        </tr>
+        <%});%>
+    </tbody>
+</table>
+</div>
+<% }else{ %>
+<h1 class="text-center">No products to display!</h1>
+<% } %>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+<%- include('../../_layouts/admin/adminfooter'); %>

@@ -1,0 +1,46 @@
+
+<%- include('../../_layouts/admin/adminheader'); %>
+<%- messages('messages', locals) %>
+
+<h2 class="page-title">Pages</h2>
+<a href="/admin/pages/add-page" class="btn btn-primary">Add new page</a>
+<br><br>
+<table class="table table-striped sorting">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%pages.forEach(element => {%>
+            <tr id="<%= element._id %>" class="<%=element.slug%> " >
+                <td><%=  element.title.toUpperCase()%></td> 
+                <td><a href="/admin/pages/edit-page/<%=element._id%>">Edit</a></td>  
+                <% if ( element.title =='home') { %>
+                    <td></td>
+                <% } else { %>
+                    <td><a href="/admin/pages/delete-page/<%=element._id%>" id='delete'>Delete</a></td>  
+                  <% } %>
+            </tr>
+        <%});%>
+    </tbody>
+</table>
+</div>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+<script>
+   $('tbody').sortable({
+       items:'tr:not(.home)',
+       placeholder: 'drop-placeholder',
+
+       update:function(){
+           let ids = $('tbody').sortable("toArray")
+           let url = '/admin/pages/reorder-pages';
+           $.post(url , {ids});
+       }
+   }).disableSelection();
+</script>
+
+<%- include('../../_layouts/admin/adminfooter'); %>
